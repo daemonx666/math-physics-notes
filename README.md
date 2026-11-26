@@ -2,6 +2,20 @@
 
 这个仓库存放数学与理论物理的证明、研究笔记和论文预稿。每篇工作有独立目录，包含模型假设、推导和引用。涉及计算的结果附复算脚本。
 
+## 高斯目标下，固定周期重置全局最优
+
+[阅读论文（PDF）](papers/gaussian-periodic-resetting/paper.pdf) · [LaTeX 源稿](papers/gaussian-periodic-resetting/paper.tex) · [复算脚本](papers/gaussian-periodic-resetting/verify.py)
+
+目标从中心高斯分布抽取一次，在所有搜索轮次中保持固定。粒子做一维布朗运动，超时后瞬间返回原点。论文证明：对于任何平均搜索时间有限的独立同分布重置时钟，都能选出一个平均搜索时间至少同样短的固定周期，并且最优周期确实存在。
+
+在布朗运动方差为 $t$、目标方差为 $1$ 的单位下，最优周期约为 $2.81592$，平均搜索时间约为 $3.34972$。Pinsky 已在固定周期族内得到这一数值。本文证明它也是所有上述时钟的全局最优值，包括平均重置间隔无穷大的时钟。[Pinsky，定理 3](https://arxiv.org/pdf/2205.02063)
+
+**稿件状态**　未经同行评审的英文草稿。AI 参与推导、写作和复核，原创优先权仍待独立核实。可在仓库根目录复算固定周期基准：
+
+```sh
+python3 papers/gaussian-periodic-resetting/verify.py
+```
+
 ## 一维布朗搜索的最优重置时钟
 
 [阅读论文（PDF）](papers/brownian-resetting/paper.pdf) · [LaTeX 源稿](papers/brownian-resetting/paper.tex) · [复算脚本](papers/brownian-resetting/verify.py)
