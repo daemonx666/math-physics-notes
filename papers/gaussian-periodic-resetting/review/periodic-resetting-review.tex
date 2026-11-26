@@ -1,0 +1,445 @@
+\documentclass[11pt]{article}
+% Compile twice with XeLaTeX. Chinese is used only on the final review sheet.
+\usepackage{fontspec}
+\usepackage{amsmath,amssymb,amsthm,xcolor}
+\IfFontExistsTF{Songti SC}{\newfontfamily\reviewzh{Songti SC}}%
+ {\newfontfamily\reviewzh{Noto Serif CJK SC}}
+\definecolor{reviewblue}{HTML}{244A66}
+\newcommand{\rmark}[1]{\hyperlink{reviewguide}{\textcolor{reviewblue}{\normalfont\small [Review #1]}}}
+\usepackage[a4paper,margin=22mm]{geometry}
+\usepackage[hidelinks]{hyperref}
+\hypersetup{pdftitle={A target-density criterion for optimal periodic resetting in Brownian search},
+ pdfauthor={Mathematical Physics Notes}}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newcommand{\E}{\mathbb E}
+\newcommand{\Prob}{\mathbb P}
+\newcommand{\erfc}{\operatorname{erfc}}
+\newcommand{\dd}{\,\mathrm d}
+\title{A target-density criterion for optimal periodic resetting in Brownian search}
+\author{Mathematical Physics Notes}
+\date{Draft for independent mathematical review \(\cdot\) 26 November 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+A Brownian searcher restarts at the origin if a deadline expires before the
+target is found. The target distance is drawn once and remains fixed. We give a sufficient condition on
+the distance density $p(x)\propto e^{-V(x)}$ under which a deterministic
+period minimizes the mean search time over all independent and identically
+distributed positive finite deadlines. The condition is that $V'(x)/x$ be
+nondecreasing, or equivalently that $V(\sqrt{u})$ be convex in $u$.
+For standard Brownian motion, write $\ell=\lim_{x\to\infty}V'(x)/x$.
+A fixed period $t$ has finite mean search time exactly when $1/t<\ell$,
+and a finite optimal period is attained. The proof compares spatial slopes
+of success probabilities on compact intervals before passing to the
+half-line. For a centered Gaussian target, the previously computed
+periodic benchmark is therefore optimal over all renewal clocks.
+\end{abstract}
+
+\section{Introduction}
+For a known target distance, an early reset can interrupt a successful
+approach, while a late reset can prolong an excursion in the wrong
+direction. When the distance is hidden, different distances generally
+favor different periods. We ask whether a single period, chosen from the
+target distribution alone, can be optimal among all renewal clocks.
+
+Pal and Reuveni~\cite{pal} established the optimality of sharp restart for
+a completion-time law independently renewed at each attempt. Conditional
+on a target at distance $x$, this gives a period which can depend on $x$.
+For a hidden target sampled only once, the relevant operation is to
+minimize \emph{after} averaging the conditional search times over its
+distance. Integrating their pointwise minima would allow the period to
+depend on the realized distance. In particular, the pointwise
+sharp-restart result alone does not give the comparison proved here.
+
+For a centered Gaussian target, Pinsky~\cite[Theorem~3]{pinsky} optimized
+the period of instantaneous resets and compared periodic, Poissonian and
+Brownian bridge protocols. Evans and Ray~\cite{evans} derived the conjugate
+target density associated with a specified renewal clock and showed how
+random resetting can prevail for broad target distributions. For a fixed
+period $\tau$, their conjugate density is proportional to the square of
+the single-attempt success probability, $\erfc^2(x/\sqrt{2\tau})$ in
+our units. This density has a Gaussian-type tail, but its dependence on
+distance differs from an exact Gaussian. Our question takes the target
+density as input. A shape condition on that density gives a common optimal
+period, and a separate test determines which periodic protocols have finite cost.
+
+The comparison proceeds in distance space. On a compact interval we match
+the slope of a mixture to the slope of one deterministic clock at a point
+(Lemma~\ref{lem:match}). The density assumption controls the sign of the
+weight in a tangent inequality (Lemma~\ref{lem:weight}). The matching
+point is chosen so that one period works on the \emph{whole} interval
+(Proposition~\ref{prop:compact}). Exhaustion then gives the half-line
+result. These three statements are marked in the text and indexed on
+\hyperlink{reviewguide}{the final review sheet}.
+
+\section{Model and main result}
+Let $B$ be standard Brownian motion on the whole line, $\E B_t^2=t$.
+Sample a target distance $X>0$ once, independently of the search. By
+reflection symmetry we may place it at $+X$. Each attempt starts at zero
+with a fresh Brownian path. If the path has not hit the target by its
+deadline, it returns instantaneously to zero. The deadlines have a common
+probability law $\mu$ on $(0,\infty)$ and are mutually independent and
+independent of $X$ and of all paths. Write $J(\mu)$ for the mean first hitting time, with expectation over the
+target, the Brownian paths and the deadlines. Write $\delta_t$ for a
+constant deadline of length $t$.
+This class includes clocks with infinite mean interval. Clocks updated
+from observations, the attempt number or the absolute time are outside
+the comparison.
+
+Suppose $X$ has density
+\begin{equation}\label{eq:prior}
+ p(x)=Z^{-1}e^{-V(x)},\qquad
+ V\in C^1((0,\infty);\mathbb R),\qquad
+ 0<Z=\int_0^\infty e^{-V(x)}\,dx<\infty .
+\end{equation}
+Our shape assumption is
+\begin{equation}\label{eq:shape}
+ k(x)=\frac{V'(x)}{x}\quad\text{is nondecreasing on }(0,\infty).
+\end{equation}
+Equivalently, $u\mapsto V(\sqrt u)$ is convex, since its derivative is
+$k(\sqrt u)/2$. The hypothesis concerns the distance density with respect
+to $dx$. For a signed target one uses the density of its absolute value.
+No extension of $V$ to zero is assumed.
+
+\begin{theorem}\label{th:main}
+Under \eqref{eq:prior}--\eqref{eq:shape}, let
+$\ell=\lim_{x\to\infty} k(x)$. Then $\ell\in(0,\infty]$ and
+\begin{equation}\label{eq:finite}
+ J(\delta_t)<\infty \quad\Longleftrightarrow\quad 1/t<\ell,\qquad t>0 .
+\end{equation}
+For every $\mu$ with finite cost there is a $t>0$ with
+$J(\delta_t)\le J(\mu)$. Furthermore,
+\[
+       \inf_{\mu}J(\mu)=\min_{t>0}J(\delta_t)<\infty .
+\]
+\end{theorem}
+
+The shape assumption is sufficient for optimality; it also furnishes a
+finite competitor without a separate moment assumption. If $\ell=\infty$,
+every positive period has finite cost. If $\ell$ is finite, the boundary
+period $1/\ell$ already has infinite cost.
+
+\section{The renewal objective}
+Write $H_x$ for the first time a fresh path hits $x$, and let $S\sim\mu$.
+For a deterministic deadline the reflection principle gives
+\[
+ q_t(x)=\Prob(H_x<t)=\erfc\!\bigl(x/\sqrt{2t}\bigr),\qquad
+ g_t(x)=-q_t'(x)=\sqrt{2/(\pi t)}\,e^{-x^2/(2t)} .
+\]
+Set $q=\E q_S$, $g=\E g_S$ and $a=\E\min(H_x,S)$, with the dependence of
+$a$ on $x$ understood. Then $q>0$ and $g=-q'$ on $(0,\infty)$.
+Differentiation under the expectation on compact subintervals away from zero
+follows because $s^{-k} e^{-x^2/(2s)}$ is uniformly bounded there for
+every $k>0$. At fixed $x$, the expected contribution of attempt $j$ is
+$(1-q(x))^{j-1}a(x)$: reaching it depends only on earlier attempts.
+Summing nonnegative terms gives the conditional mean $a(x)/q(x)$ in
+the extended reals. Since $H_x$ has a continuous distribution and $S$
+is independent of it, ties have probability zero.
+
+We record the kernel formula used in the companion note~\cite{note}.
+For $a_t(x)=\int_0^t(1-q_v(x))\,dv$, the heat equation gives
+$-a_t''=2q_t$, with $a_t(0)=0$ and $a_t'(\infty)=0$. The last condition
+follows from $a_t'=\int_0^t g_v\,dv$ by dominated convergence; in the
+interior the Gaussian factor permits the two differentiations.
+Integrating twice and averaging over $S$ by Tonelli's theorem therefore gives
+\begin{equation}\label{eq:J}
+ a(x)=2\int_0^\infty\min(x,y)q(y)\,dy,\qquad
+ J(\mu)=2\iint_{(0,\infty)^2}\min(x,y)p(x)\frac{q(y)}{q(x)}\,dx\,dy .
+\end{equation}
+Fix $I=[a,b]\subset(0,\infty)$ with $a<b$. Write $J_I(q)$ for the last
+integral restricted to $I^2$. This is a truncation of an integral; the
+Brownian paths still move on the whole line.
+
+\subsection*{Which periods have finite cost?}
+We prove \eqref{eq:finite} first. The monotone function $k$ has an extended
+limit and must take a positive value: otherwise $V$ would be nonincreasing
+and $e^{-V}$ would not be integrable at infinity. Hence $0<\ell\le\infty$.
+For fixed $t>0$, bounded convergence gives $a_t(x)\to t$ as $x\to\infty$.
+Moreover the Gaussian tail satisfies
+\[
+ q_t(x)\sim \sqrt{2t/\pi}\,x^{-1}e^{-x^2/(2t)}
+ \qquad(x\to\infty).
+\]
+On $(0,A]$ the conditional cost is at most $t/q_t(A)$, so normalization
+controls the origin. On the remaining tail, the renewal formula shows that
+finite cost is equivalent to convergence of
+\begin{equation}\label{eq:tail}
+ \int_A^\infty x\exp\!\left(\frac{x^2}{2t}-V(x)\right)dx .
+\end{equation}
+If $1/t<\ell$, choose a finite $\beta$ with $1/t<\beta<\ell$. Eventually
+$V'(x)=xk(x)\ge\beta x$, and hence $V(x)\ge C+\beta x^2/2$ there for
+some real $C$. This makes \eqref{eq:tail} finite. Conversely, if
+$\ell<\infty$ and $1/t\ge\ell$, then $k(x)\le\ell$. Integrating from
+$A>0$ gives $V(x)\le C'+\ell x^2/2$. Even at equality the integrand in
+\eqref{eq:tail} is bounded below by a positive multiple of $x$. This proves
+\eqref{eq:finite}.
+
+\section{Matching the slope of a mixture}
+Write $h=-q'/q$ and $h_t=-q_t'/q_t$. These are logarithmic slopes in
+\emph{distance}. The next lemma depends only on the Brownian search process.
+\begin{lemma}[Spatial slope matching \rmark{I}]\label{lem:match}
+For every $u>0$ there is a unique $t=t(u)$ with $h_t(u)=h(u)$, and
+$t(u)$ is continuous. For this fixed $t$,
+\[
+ h(x)-h_t(x)\ge0\quad(0<x<u),\qquad
+ h(x)-h_t(x)\le0\quad(x>u).
+\]
+\end{lemma}
+\begin{proof}
+The identity
+\begin{equation}\label{eq:mills}
+ h_t(x)^{-1}=\frac{q_t(x)}{g_t(x)}
+ =\int_0^\infty e^{-(2xv+v^2)/(2t)}\,dv
+\end{equation}
+shows that $1/h_t(u)$ increases strictly and continuously from zero to
+infinity as $t$ increases. Since $h(u)>0$ is continuous, so is the
+unique solution: periods on either side of $t(u)$ still bracket the root
+for all sufficiently close $u'$.
+
+For the matched $t$, consider the \emph{density} ratio
+\begin{equation}\label{eq:densityratio}
+ d(x)=g(x)/g_t(x)
+ =\E\!\left[\sqrt{t/S}\,\exp\{(1/t-1/S)x^2/2\}\right].
+\end{equation}
+As a function of $x^2$ it is strictly convex unless $S=t$ almost surely,
+in which case the assertion is immediate. Its derivatives on compact subsets
+of $(0,\infty)$ are justified by the same Gaussian bound as for $g$.
+Consequently $d$ is decreasing
+then increasing in $x$, with the possibility that one of the two parts is
+empty. The corresponding tail comparison is
+\begin{equation}\label{eq:delta}
+ \Delta(x)=q(x)-q_t(x)d(x)
+          =\int_x^\infty g_t(y)[d(y)-d(x)]\,dy .
+\end{equation}
+On a decreasing part $\Delta'=-q_t d'>0$. Wherever $d$ is increasing
+for all subsequent $x$, the integral is strictly positive. If $d$ is
+strictly decreasing throughout, the integral is strictly negative.
+Thus any zero of $\Delta$ is a crossing from negative to positive.
+Now $(q/q_t)'=g_t\Delta/q_t^2$ and $\Delta(u)=0$ by matching. Taking the
+negative logarithmic derivative of $q/q_t$ proves the two signs.
+\end{proof}
+
+\section{A global tangent inequality on a compact interval}
+For $x<y$ let $A=\int_x^y h(v)\,dv$. Pair the contributions of $(x,y)$
+and $(y,x)$ in~\eqref{eq:J}. The result is $2x$ times
+$p(x)e^{-A}+p(y)e^A$, a convex function of $A$.
+Take its tangent at $A_t=\int_x^y h_t(v)\,dv$, and integrate over all
+$a<x<y<b$. By changing the order of integration we obtain
+\begin{equation}\label{eq:tangent}
+ J_I(q)-J_I(q_t)\ \ge\
+ \int_a^b W_t(u)[h(u)-h_t(u)]\,du .
+\end{equation}
+All functions in this step are bounded on $I$. To determine the sign of
+$W_t$, put $r=p/q_t^2$ and define the masses and averages
+\begin{align*}
+ M_L(u)&=\int_a^u xq_t(x)\,dx,&
+ L(u)&=M_L(u)^{-1}\int_a^u xq_t(x)r(x)\,dx,\\
+ M_R(u)&=\int_u^b q_t(y)\,dy,&
+ R(u)&=M_R(u)^{-1}\int_u^b q_t(y)r(y)\,dy .
+\end{align*}
+In the tangent coefficient the derivative of the paired integrand is
+$2xq_t(x)q_t(y)[r(y)-r(x)]$. Integrating over $x<u<y$ gives
+\begin{equation}\label{eq:weight}
+ W_t(u)=2M_L(u)M_R(u)G_t(u),\qquad G_t(u)=R(u)-L(u).
+\end{equation}
+Use the continuous limits $L(a)=r(a)$ and $R(b)=r(b)$.
+
+\begin{lemma}[A single sign change of the weight \rmark{II}]\label{lem:weight}
+For a fixed $t$, every interior zero of $G_t$ is a strict downward crossing.
+If $G_t(a)=0$ it is negative immediately to the right; if $G_t(b)=0$ it is
+positive immediately to the left. In particular $G_t$ has at most one zero
+on $I$.
+\end{lemma}
+\begin{proof}
+The target enters through $(\log r)'=2h_t-V'$. Substituting $w=xv$
+in~\eqref{eq:mills} we find
+\[
+ x/h_t(x)=\int_0^\infty e^{-w/t-w^2/(2tx^2)}\,dw .
+\]
+This increases strictly with $x$, so $2h_t(x)/x$ is strictly decreasing.
+By \eqref{eq:shape}, the function
+\begin{equation}\label{eq:keyshape}
+ x\longmapsto\frac{(\log r)'(x)}{x}=\frac{2h_t(x)}{x}-k(x)
+\end{equation}
+is strictly decreasing even on intervals where $k$ is constant.
+On $I$ the function $r$ therefore either is strictly monotone or has one
+strict interior maximum, increasing before it and decreasing after it.
+
+At an interior zero $u$ write $m=L(u)=R(u)$. On the increasing side the
+left average is strictly less than $r(u)$; on the decreasing side the
+right average is strictly less. This also covers the monotone cases and the
+maximum itself. Hence $m<r(u)$. The identities
+\[
+ L'(u)=\frac{u q_t(u)}{M_L(u)}[r(u)-L(u)],\qquad
+ R'(u)=\frac{q_t(u)}{M_R(u)}[R(u)-r(u)]
+\]
+now give $G_t'(u)<0$.
+
+If $G_t(a)=0$, then $r(a)$ equals the right average over $I$. We must
+have $r'(a)>0$: otherwise the strict decrease of $(\log r)'/x$ makes $r$
+strictly decreasing on $(a,b)$, so its average is below $r(a)$.
+For $v\downarrow0$, the positive smooth left weight $xq_t(x)$ gives
+$L(a+v)=r(a)+r'(a)v/2+o(v)$, by expanding numerator and denominator
+(or averaging $r(x)-r(a)$ on the short interval). The derivative formula
+for $R$ at $a$ gives $R'_+(a)=0$. Thus $G'_{t,+}(a)=-r'(a)/2<0$.
+If $G_t(b)=0$, the same strict decrease of $(\log r)'/x$ forces $r'(b)<0$;
+otherwise the left average would be below $r(b)$. Here $L'_-(b)=0$ and
+$R(b-v)=r(b)-r'(b)v/2+o(v)$, giving $G'_{t,-}(b)=r'(b)/2<0$.
+The endpoint calculations can be summarized as
+\begin{equation}\label{eq:endpoints}
+ G_t(a)=0\ \Longrightarrow\ G'_{t,+}(a)=-r'(a)/2<0,\qquad
+ G_t(b)=0\ \Longrightarrow\ G'_{t,-}(b)=r'(b)/2<0 .
+\end{equation}
+All zeros are isolated, including possible endpoint zeros. On the compact
+interval their set is closed and therefore finite. Two consecutive zeros
+would require opposite signs on the intervening zero-free interval, since
+both crossings are downward. This proves the assertion.
+\end{proof}
+
+\begin{proposition}[One period on the entire interval \rmark{III}]\label{prop:compact}
+For each $I$ and admissible $\mu$ there exists a single $t>0$ such that
+$J_I(q_t)\le J_I(q)$.
+\end{proposition}
+\begin{proof}
+Let $F(u)=G_{t(u)}(u)$ with $t(u)$ as in Lemma~\ref{lem:match}. The
+averages defining $G_t(u)$ are jointly continuous in $(t,u)$ up to the
+endpoints for $t>0$: a shrinking-interval average tends to its endpoint
+value uniformly for $t$ in a compact neighborhood. Thus $F$ is continuous.
+No monotonicity of the composite $F$ is assumed. If $F(a)\le0$, fix $t=t(a)$. Lemma~\ref{lem:weight} gives $G_t\le0$
+throughout $I$ and Lemma~\ref{lem:match} gives $h-h_t\le0$. If $F(b)\ge0$,
+$t=t(b)$ instead makes both functions nonnegative. In the remaining case
+$F(a)>0>F(b)$. Choose an interior zero $u_0$ of $F$ and fix $t=t(u_0)$.
+For this \emph{single} period $G_t$ and $h-h_t$ are both nonnegative on
+the left of $u_0$ and nonpositive on the right. In every case the
+right-hand side of~\eqref{eq:tangent} is nonnegative.
+\end{proof}
+
+\section{Passage to the half-line and attainment}\label{sec:attain}
+\begin{proof}[Proof of Theorem~\ref{th:main}]
+For $n\ge2$ take $I_n=[1/n,n]$ and let $t_n$ be the comparison period
+from Proposition~\ref{prop:compact}. Then
+$J_{I_n}(q_{t_n})\le J_{I_n}(q)\le J(\mu)<\infty$.
+Extend the nonnegative integrands by zero off $I_n^2$.
+If a subsequence had $t_n\to\infty$, its ratio $q_{t_n}(y)/q_{t_n}(x)$
+would converge to one. The resulting integral in~\eqref{eq:J} diverges
+because $\int_x^\infty \min(x,y)\,dy=\infty$ for each $x>0$.
+If $t_n\to0$, the Gaussian tail asymptotic
+$q_t(x)\sim\sqrt{2t/\pi}\,x^{-1}e^{-x^2/(2t)}$ for fixed $x>0$
+gives $q_{t_n}(y)/q_{t_n}(x)\to\infty$ on the positive-measure set $0<y<x$.
+Fatou's lemma contradicts the finite bound in both cases.
+Choose $n_j\to\infty$ such that $t_{n_j}\to t_0\in(0,\infty)$. Fatou again
+gives $J(\delta_{t_0})\le\liminf_{j\to\infty} J_{I_{n_j}}(q_{t_{n_j}})\le J(\mu)$.
+
+It remains to show that the periodic infimum is attained.
+By $\ell>0$ and \eqref{eq:finite} there is a finite competitor. Take
+$t=2/\ell$ when $\ell<\infty$ and $t=1$ when $\ell=\infty$.
+Take a minimizing sequence of periods with bounded costs.
+Applying the preceding two Fatou arguments to the full integrals rules
+out subsequences tending to zero or infinity. A subsequence converges to
+a finite positive period $t_*$. Fatou bounds $J(\delta_{t_*})$ by the
+finite infimum, so $t_*$ attains it. In particular, \eqref{eq:finite}
+excludes $t_*=1/\ell$ when $\ell<\infty$, even for periods approaching
+that boundary from above. Constant clocks are admissible, so the two
+infima coincide.
+\end{proof}
+
+\section{Examples and scope of the criterion}
+\paragraph{Gaussian target.}
+For a signed target $N(0,\sigma^2)$ the distance density on the half-line
+is proportional to $e^{-x^2/(2\sigma^2)}$. Thus $k=1/\sigma^2$ and exactly
+the periods $t>\sigma^2$ have finite cost for standard Brownian motion.
+Theorem~\ref{th:main} makes the best such period globally optimal among
+renewal laws. For $\sigma=1$, integration of the survival probability gives
+\[
+ a_t(x)=t[1-q_t(x)]+x\sqrt{2t/\pi}\,e^{-x^2/(2t)}-x^2q_t(x).
+\]
+Numerical evaluation of $J(\delta_t)=\int_0^\infty p(x)a_t(x)/q_t(x)\,dx$
+gives a period near $2.81592$ and a mean time near $3.34972$, in agreement
+with Pinsky~\cite[Eq.~(1.13)]{pinsky}. These numbers are specific to the
+Gaussian example. If the Brownian variance is $\nu t$, Brownian scaling
+multiplies both unit-model times by $\sigma^2/\nu$. Our proof establishes
+existence and leaves open the uniqueness of the optimizing period.
+
+\paragraph{Beyond the Gaussian.}
+For $p(x)\propto e^{-c x^\alpha}$ with $c>0$ and $\alpha\ge2$,
+$k=c\alpha x^{\alpha-2}$. For $\alpha=2$ the threshold is $t>1/(2c)$;
+for $\alpha>2$ every positive period has finite cost, and a best period
+attains the infimum over all renewal laws. The density itself need not
+decrease from the origin: $p(x)\propto x^m e^{-cx^2}$ with $c,m>0$
+has its mode at positive distance. Here $V=cx^2-m\log x$ is singular at
+zero, but $k=2c-m/x^2$ increases to $2c$. The same strict threshold
+$t>1/(2c)$ follows and periodic resetting is again optimal.
+
+\paragraph{A sufficient condition.}
+The class in \eqref{eq:shape} does not exhaust the target laws for which a
+periodic clock is optimal. For the conjugate target
+$p(x)\propto q_\tau(x)^2$ of Evans and Ray~\cite{evans}, the equality case
+of the kernel bound in~\cite{note} gives optimality of $\delta_\tau$.
+Indeed, write $N_\tau=\int_0^\infty q_\tau^2\,dx$. Pairing $(x,y)$ with
+$(y,x)$ in~\eqref{eq:J} and applying the arithmetic--geometric mean
+inequality to the two positive ratios yields
+\[
+ J(\mu)\ge \frac{2}{N_\tau}\iint_{(0,\infty)^2}
+ \min(x,y)q_\tau(x)q_\tau(y)\,dx\,dy=J(\delta_\tau)<\infty .
+\]
+The Gaussian decay of $q_\tau$ makes this last integral finite.
+In this example $k(x)=2h_\tau(x)/x$ is strictly decreasing by the change
+of variable in Lemma~\ref{lem:weight}. Thus the shape assumption is not
+necessary for optimality.
+
+\section*{Data availability statement}
+The analytic results require no empirical data. The
+\href{https://github.com/daemonx666/math-physics-notes/blob/6a3f7da7459bd6e68c4d10f60bde20e3f0539092/papers/gaussian-periodic-resetting/verify.py}{archived quadrature script}
+reproduces the Gaussian benchmark using the Python standard library.
+
+\section*{Acknowledgements}
+\emph{AI disclosure.} OpenAI Codex was used to develop the analytic
+argument, draft and revise the text, and implement the Gaussian numerical
+check. A separate AI reading examined the threshold, endpoint signs and
+attainment argument. This review copy invites an independent mathematical
+assessment.
+
+\begin{thebibliography}{4}
+\bibitem{pinsky} R.~G. Pinsky, Comparison of Brownian jump and Brownian
+bridge resetting in search for Gaussian target on the line and in space,
+\emph{J. Phys. A: Math. Theor.} \textbf{56}, 335004 (2023).
+\href{https://doi.org/10.1088/1751-8121/ace865}{doi:10.1088/1751-8121/ace865}.
+\bibitem{pal} A. Pal and S. Reuveni, First Passage under Restart,
+\emph{Phys. Rev. Lett.} \textbf{118}, 030603 (2017).
+\href{https://doi.org/10.1103/PhysRevLett.118.030603}{doi:10.1103/PhysRevLett.118.030603}.
+\bibitem{evans} M.~R. Evans and S. Ray, Stochastic Resetting Prevails Over
+Sharp Restart for Broad Target Distributions, \emph{Phys. Rev. Lett.}
+\textbf{134}, 247102 (2025).
+\href{https://doi.org/10.1103/2wpq-gl2j}{doi:10.1103/2wpq-gl2j}.
+\bibitem{note} Mathematical Physics Notes, A sharp bound for Brownian
+search with renewal resetting, working paper (2026).
+\href{https://github.com/daemonx666/math-physics-notes/blob/92bc9bc972a7755d4cc9ff2c768b29f5155a4621/papers/brownian-resetting/paper.pdf}{Repository copy}.
+\end{thebibliography}
+\clearpage
+\phantomsection\hypertarget{reviewguide}{}\pdfbookmark[0]{Reviewer's guide}{guidebookmark}
+\begingroup
+\reviewzh\fontsize{12pt}{19pt}\selectfont\XeTeXlinebreaklocale "zh"\relax
+\XeTeXlinebreakskip=0pt plus 1pt\relax
+\setlength{\parindent}{0pt}\setlength{\parskip}{9pt}
+{\Large 概率论审读指引}\par
+这篇稿件讨论同一个隐藏目标在重置后保持原位的情形。每次截止时间独立同分布，并与目标及布朗路径独立。我们想请您判断，给定目标距离的密度后，下面的比较是否真的能对所有这类时钟成立。若时间有限，建议先读命题~\ref{prop:compact}，再回看它使用的两个引理。
+
+{\large 首要核查：同一个周期怎样选出来？}\par
+\hyperref[prop:compact]{命题~\ref{prop:compact}（正文第~\pageref{prop:compact}~页）}。
+由匹配周期构造的 \(F(u)=G_{t(u)}(u)\) 只知连续。选出零点 \(u_0\) 以后，证明改为固定 \(t=t(u_0)\)，再对所有 \(x\) 使用两条变号结论。请检查式~\eqref{eq:tangent} 和 \eqref{eq:weight} 的符号，以及零点在端点时两个因子是否仍同号。
+
+{\large 两个决定比较方向的引理}\par
+\hyperref[lem:match]{引理~\ref{lem:match}（正文第~\pageref{lem:match}~页）}。
+式~\eqref{eq:densityratio} 中关于 \(x^2\) 凸的是密度比 \(g/g_t\)。从它转到尾概率比 \(q/q_t\) 时，需要式~\eqref{eq:delta}。请检查这一转换能否保证，斜率相等处左边 \(h-h_t\ge0\)、右边 \(h-h_t\le0\)，包括时钟有原子或均值无穷的情形。
+
+\hyperref[lem:weight]{引理~\ref{lem:weight}（正文第~\pageref{lem:weight}~页）}。
+目标分布的形状假设只在比较权重时进入。请核查式~\eqref{eq:keyshape} 的严格递减如何推出右、左加权平均之差至多向下过零一次，尤其是式~\eqref{eq:endpoints} 的两个单侧导数和系数 \(1/2\)。
+
+{\large 另请留意的边界}\par
+\hyperref[th:main]{定理~\ref{th:main}（第~\pageref{th:main}~页）} 的有限性判据是严格不等式 \(1/t<\ell\)。当 \(\ell<\infty\)，临界等号下，式~\eqref{eq:tail} 的被积函数有下界 \(c x\)，其中 \(c>0\)。半轴极限见第~\pageref{sec:attain}~页：截断的是非负双重积分的空间区域。请检查比较周期逃向零、无穷以及趋向有限性临界点这三种可能是否均已覆盖。
+
+如有疑点，指出第一处需要额外假设或不能推出下一步的公式即可。也盼请教，概率序、全正性或重启理论中，是否已有足以直接推出这两个变号引理及其组合的结果。谢谢您审读。
+\endgroup
+\end{document}
