@@ -3,7 +3,7 @@
 \usepackage{lmodern,amsmath,amssymb,amsthm}
 \usepackage[letterpaper,margin=0.95in]{geometry}
 \usepackage[hidelinks]{hyperref}
-\hypersetup{pdftitle={Optimal periodic resetting for a Gaussian target on the line},
+\hypersetup{pdftitle={A target-density criterion for optimal periodic resetting in Brownian search},
  pdfauthor={Mathematical Physics Notes}}
 \newtheorem{theorem}{Theorem}
 \newtheorem{lemma}[theorem]{Lemma}
@@ -12,50 +12,99 @@
 \newcommand{\Prob}{\mathbb P}
 \newcommand{\erfc}{\operatorname{erfc}}
 \newcommand{\dd}{\,\mathrm d}
-\title{Optimal periodic resetting for a Gaussian target on the line}
+\title{A target-density criterion for optimal periodic resetting in Brownian search}
 \author{Mathematical Physics Notes}
 \date{Working paper \(\cdot\) 26 November 2026}
 \begin{document}
 \maketitle
 \begin{abstract}
-A Brownian searcher returns instantaneously to the origin at successive
-deadlines until it hits a target. The target is sampled once from a centered
-Gaussian distribution and remains fixed after each reset. We prove that a
-constant deadline minimizes the mean search time over all positive, almost
-surely finite, independent and identically distributed deadlines, including
-laws with infinite mean. On a compact interval we select a deterministic
-period by matching the spatial logarithmic slopes of the single-attempt
-success probabilities. Two one-crossing properties give a global comparison
-by convexity. Exhausting the half-line yields the full comparison and
-attainment. The resulting period and mean time coincide with the previously
-computed optimum within the periodic family.
+A Brownian particle searches the line for a target whose distance is sampled
+once and remains fixed after each reset. We give a sufficient condition on
+the distance density $p(x)\propto e^{-V(x)}$ under which a deterministic
+period minimizes the mean search time over all independent and identically
+distributed positive finite deadlines. The condition is that $V'(x)/x$ be
+nondecreasing, or equivalently that $V(\sqrt{u})$ be convex in $u$.
+For standard Brownian motion, write $\ell=\lim_{x\to\infty}V'(x)/x$.
+A fixed period $t$ has finite mean search time exactly when $1/t<\ell$,
+and a finite optimal period is attained. The proof compares spatial slopes
+of success probabilities on compact intervals before passing to the
+half-line. For a centered Gaussian target, the previously computed
+periodic benchmark is therefore optimal over all renewal clocks.
 \end{abstract}
 
-\section{Model and result}
-Let $B$ be standard one-dimensional Brownian motion, $\E B_t^2=t$.
-Sample $Z\sim N(0,1)$ independently at the start of the search. Each attempt
-starts at zero with a fresh Brownian path. At its deadline the searcher
-returns instantaneously to zero if it has not hit $Z$. The deadlines have
-a common law $\mu$ on $(0,\infty)$ and are mutually independent and
-independent of $Z$ and of all paths. Write $J(\mu)$ for the mean time of the
-first hit, averaged over all these random variables, and $\delta_t$ for the
-constant deadline $t$. Conditional on $X=|Z|=x$, reflection symmetry allows
-us to put the target at $+x$. Thus $p(x)=\sqrt{2/\pi}\,e^{-x^2/2}$ for $x>0$.
+\section{Introduction}
+A searcher who resets too early forfeits progress towards a distant target.
+One who waits too long can spend most of an attempt on an excursion away
+from a nearby target. When the target distance is uncertain, a mixture of
+short and long deadlines can address both scales. We ask when the distance
+law alone guarantees that a single period performs at least as well as any
+such mixture.
+
+Pal and Reuveni~\cite{pal} established the optimality of sharp restart for
+a completion-time law independently renewed at each attempt. Conditional
+on a target at distance $x$, this gives a period which can depend on $x$.
+If the same hidden target persists, an unsuccessful attempt changes the
+distribution of its distance conditional on failure. Averaging the
+pointwise minima gives a benchmark for a searcher who knows $x$.
+The searcher studied here must choose a common clock law.
+
+For a centered Gaussian target, Pinsky~\cite[Theorem~3]{pinsky} optimized
+the period of instantaneous resets and compared periodic, Poissonian and
+Brownian bridge protocols. Evans and Ray~\cite{evans} derived the conjugate
+target density associated with a specified renewal clock and showed how
+random resetting can prevail for broad target distributions. For a fixed
+period $\tau$, their conjugate density is proportional to the square of
+the single-attempt success probability, $\erfc^2(x/\sqrt{2\tau})$ in
+our units. This density has a Gaussian-type tail, but its dependence on
+distance differs from an exact Gaussian. Our question takes the target
+density as input. A shape condition on that density gives a common optimal
+period, and a separate test determines which periodic protocols have finite cost.
+
+\section{Model and main result}
+Let $B$ be standard Brownian motion on the whole line, $\E B_t^2=t$.
+Sample a target distance $X>0$ once, independently of the search. By
+reflection symmetry we may place it at $+X$. Each attempt starts at zero
+with a fresh Brownian path. If the path has not hit the target by its
+deadline, it returns instantaneously to zero. The deadlines have a common
+probability law $\mu$ on $(0,\infty)$ and are mutually independent and
+independent of $X$ and of all paths. Write $J(\mu)$ for the mean time
+of the first hit and $\delta_t$ for a constant deadline of length $t$.
+This class includes clocks with infinite mean interval. Clocks updated
+from observations, the attempt number or the absolute time are outside
+the comparison.
+
+Suppose $X$ has density
+\begin{equation}\label{eq:prior}
+ p(x)=Z^{-1}e^{-V(x)},\qquad
+ V\in C^1((0,\infty);\mathbb R),\qquad
+ 0<Z=\int_0^\infty e^{-V(x)}\,dx<\infty .
+\end{equation}
+Our shape assumption is
+\begin{equation}\label{eq:shape}
+ k(x)=\frac{V'(x)}{x}\quad\text{is nondecreasing on }(0,\infty).
+\end{equation}
+Equivalently, $u\mapsto V(\sqrt u)$ is convex, since its derivative is
+$k(\sqrt u)/2$. The hypothesis concerns the distance density with respect
+to $dx$. For a signed target one uses the density of its absolute value.
+No extension of $V$ to zero is assumed.
 
 \begin{theorem}\label{th:main}
-For every $\mu$ with $J(\mu)<\infty$ there is a $t>0$ such that
-$J(\delta_t)\le J(\mu)$. Moreover,
+Under \eqref{eq:prior}--\eqref{eq:shape}, let
+$\ell=\lim_{x\to\infty} k(x)$. Then $\ell\in(0,\infty]$ and
+\begin{equation}\label{eq:finite}
+ J(\delta_t)<\infty \quad\Longleftrightarrow\quad 1/t<\ell,\qquad t>0 .
+\end{equation}
+For every $\mu$ with finite cost there is a $t>0$ with
+$J(\delta_t)\le J(\mu)$. Furthermore,
 \[
        \inf_{\mu}J(\mu)=\min_{t>0}J(\delta_t)<\infty .
 \]
 \end{theorem}
 
-Pinsky computed the optimum over periodic instantaneous resets and compared
-it with Poissonian resets and Brownian bridge resets~\cite[Theorem~3]{pinsky}.
-Theorem~\ref{th:main} upgrades that periodic optimum to a comparison with
-every renewal law in the model. In particular a single period suffices when
-the realized target distance is hidden. Policies using observations,
-the attempt number, or the absolute time are outside the theorem.
+The shape assumption is sufficient for optimality; it also furnishes a
+finite competitor without a separate moment assumption. If $\ell=\infty$,
+every positive period has finite cost. If $\ell$ is finite, the boundary
+period $1/\ell$ already has infinite cost.
 
 \section{The renewal objective}
 Write $H_x$ for the first time a fresh path hits $x$, and let $S\sim\mu$.
@@ -84,6 +133,30 @@ Integrating twice and averaging over $S$ by Tonelli's theorem therefore gives
 Fix $I=[a,b]\subset(0,\infty)$ with $a<b$. Write $J_I(q)$ for the last
 integral restricted to $I^2$. This is a truncation of an integral; the
 Brownian paths still move on the whole line.
+
+\subsection*{Which periods have finite cost?}
+We prove \eqref{eq:finite} first. The monotone function $k$ has an extended
+limit and must take a positive value: otherwise $V$ would be nonincreasing
+and $e^{-V}$ would not be integrable at infinity. Hence $0<\ell\le\infty$.
+For fixed $t>0$, bounded convergence gives $a_t(x)\to t$ as $x\to\infty$.
+Moreover the Gaussian tail satisfies
+\[
+ q_t(x)\sim \sqrt{2t/\pi}\,x^{-1}e^{-x^2/(2t)}
+ \qquad(x\to\infty).
+\]
+On $(0,A]$ the conditional cost is at most $t/q_t(A)$, so normalization
+controls the origin. On the remaining tail, the renewal formula shows that
+finite cost is equivalent to convergence of
+\begin{equation}\label{eq:tail}
+ \int_A^\infty x\exp\!\left(\frac{x^2}{2t}-V(x)\right)dx .
+\end{equation}
+If $1/t<\ell$, choose a finite $\beta$ with $1/t<\beta<\ell$. Eventually
+$V'(x)=xk(x)\ge\beta x$, and hence $V(x)\ge C+\beta x^2/2$ there for
+some real $C$. This makes \eqref{eq:tail} finite. Conversely, if
+$\ell<\infty$ and $1/t\ge\ell$, then $k(x)\le\ell$. Integrating from
+$A>0$ gives $V(x)\le C'+\ell x^2/2$. Even at equality the integrand in
+\eqref{eq:tail} is bounded below by a positive multiple of $x$. This proves
+\eqref{eq:finite}.
 
 \section{Matching the slope of a mixture}
 Write $h=-q'/q$ and $h_t=-q_t'/q_t$. These are logarithmic slopes in
@@ -142,15 +215,15 @@ $a<x<y<b$. By changing the order of integration we obtain
 All functions in this step are bounded on $I$. To determine the sign of
 $W_t$, put $r=p/q_t^2$ and define the masses and averages
 \begin{align*}
- U(u)&=\int_a^u xq_t(x)\,dx,&
- L(u)&=U(u)^{-1}\int_a^u xq_t(x)r(x)\,dx,\\
- V(u)&=\int_u^b q_t(y)\,dy,&
- R(u)&=V(u)^{-1}\int_u^b q_t(y)r(y)\,dy .
+ M_L(u)&=\int_a^u xq_t(x)\,dx,&
+ L(u)&=M_L(u)^{-1}\int_a^u xq_t(x)r(x)\,dx,\\
+ M_R(u)&=\int_u^b q_t(y)\,dy,&
+ R(u)&=M_R(u)^{-1}\int_u^b q_t(y)r(y)\,dy .
 \end{align*}
 In the tangent coefficient the derivative of the paired integrand is
 $2xq_t(x)q_t(y)[r(y)-r(x)]$. Integrating over $x<u<y$ gives
 \[
- W_t(u)=2U(u)V(u)G_t(u),\qquad G_t(u)=R(u)-L(u).
+ W_t(u)=2M_L(u)M_R(u)G_t(u),\qquad G_t(u)=R(u)-L(u).
 \]
 Use the continuous limits $L(a)=r(a)$ and $R(b)=r(b)$.
 
@@ -161,12 +234,17 @@ positive immediately to the left. In particular $G_t$ has at most one zero
 on $I$.
 \end{lemma}
 \begin{proof}
-The Gaussian target gives $(\log r)'=2h_t-x$. Upon substituting $w=xv$
+The target enters through $(\log r)'=2h_t-V'$. Substituting $w=xv$
 in~\eqref{eq:mills} we find
 \[
  x/h_t(x)=\int_0^\infty e^{-w/t-w^2/(2tx^2)}\,dw .
 \]
-This increases strictly with $x$, so $(\log r)'/x$ decreases strictly.
+This increases strictly with $x$, so $2h_t(x)/x$ is strictly decreasing.
+By \eqref{eq:shape},
+\[
+ \frac{(\log r)'(x)}{x}=\frac{2h_t(x)}{x}-k(x)
+\]
+is strictly decreasing even on intervals where $k$ is constant.
 On $I$ the function $r$ therefore either is strictly monotone or has one
 strict interior maximum, increasing before it and decreasing after it.
 
@@ -175,8 +253,8 @@ left average is strictly less than $r(u)$; on the decreasing side the
 right average is strictly less. This also covers the monotone cases and the
 maximum itself. Hence $m<r(u)$. The identities
 \[
- L'(u)=\frac{u q_t(u)}{U(u)}[r(u)-L(u)],\qquad
- R'(u)=\frac{q_t(u)}{V(u)}[R(u)-r(u)]
+ L'(u)=\frac{u q_t(u)}{M_L(u)}[r(u)-L(u)],\qquad
+ R'(u)=\frac{q_t(u)}{M_R(u)}[R(u)-r(u)]
 \]
 now give $G_t'(u)<0$.
 
@@ -229,59 +307,73 @@ Choose $n_j\to\infty$ such that $t_{n_j}\to t_0\in(0,\infty)$. Fatou again
 gives $J(\delta_{t_0})\le\liminf_{j\to\infty} J_{I_{n_j}}(q_{t_{n_j}})\le J(\mu)$.
 
 It remains to show that the periodic infimum is attained.
-A finite competitor is $t=2$. Indeed, $a_2\le2$ and the same Gaussian tail
-asymptotic, now at $x\to\infty$ with $t=2$, gives
-$p(x)/q_2(x)=O(xe^{-x^2/4})$; the ratio is bounded near zero.
+Since $\ell>0$, \eqref{eq:finite} supplies a finite competitor: take
+$t=2/\ell$ when $\ell<\infty$ and $t=1$ when $\ell=\infty$.
 Take a minimizing sequence of periods with bounded costs.
 Applying the preceding two Fatou arguments to the full integrals rules
 out subsequences tending to zero or infinity. A subsequence converges to
-a finite positive period and Fatou bounds its cost by the infimum. Since
-constant clocks belong to the admissible class, the two infima coincide.
+a finite positive period $t_*$. Fatou bounds $J(\delta_{t_*})$ by the
+finite infimum, so $t_*$ attains it. In particular, \eqref{eq:finite}
+excludes $t_*=1/\ell$ when $\ell<\infty$, even for periods approaching
+that boundary from above. Constant clocks are admissible, so the two
+infima coincide.
 \end{proof}
 
-\section{Scale, benchmark and relation to earlier results}
-If the Brownian variance is $\nu t$ and the centered target variance is
-$\sigma^2$, Brownian scaling multiplies both times in the unit model by
-$\sigma^2/\nu$. In the convention with generator $D\partial_x^2$ one has
-$\nu=2D$. For numerical evaluation within the periodic family,
-integrating the Brownian survival probability gives
+\section{Examples and scope of the criterion}
+\paragraph{Gaussian target.}
+For a signed target $N(0,\sigma^2)$ the distance density on the half-line
+is proportional to $e^{-x^2/(2\sigma^2)}$. Thus $k=1/\sigma^2$ and exactly
+the periods $t>\sigma^2$ have finite cost for standard Brownian motion.
+Theorem~\ref{th:main} makes the best such period globally optimal among
+renewal laws. For $\sigma=1$, integration of the survival probability gives
 \[
  a_t(x)=t[1-q_t(x)]+x\sqrt{2t/\pi}\,e^{-x^2/(2t)}-x^2q_t(x).
 \]
-Using $J(\delta_t)=\int_0^\infty p(x)a_t(x)/q_t(x)\,dx$ gives a period
-near $2.81592$ and mean time near $3.34972$ in the unit model, consistent
-with Pinsky's values $2.82$ and $3.35$~\cite[Eq.~(1.13)]{pinsky}. The
-accompanying Python script reproduces this numerical benchmark. Attainment
-and global optimality follow from the comparison proof; uniqueness of the
-minimizing period is a separate question.
+Numerical evaluation of $J(\delta_t)=\int_0^\infty p(x)a_t(x)/q_t(x)\,dx$
+gives a period near $2.81592$ and a mean time near $3.34972$, in agreement
+with Pinsky~\cite[Eq.~(1.13)]{pinsky}. These numbers are specific to the
+Gaussian example. If the Brownian variance is $\nu t$, Brownian scaling
+multiplies both unit-model times by $\sigma^2/\nu$. Our proof establishes
+existence and leaves open the uniqueness of the optimizing period.
 
-Pal and Reuveni~\cite{pal} show why a deterministic deadline suffices for
-a fixed completion-time law renewed independently at each restart. Here,
-conditional on $X=x$, the relevant law is fixed, but the best period may
-depend on $x$. Averaging those pointwise minima allows knowledge of $X$.
-In the unconditional search, failures carry information about the original
-target and the same $X$ enters the success probability of every attempt.
-The comparison above selects a common period.
+\paragraph{Beyond the Gaussian.}
+For $p(x)\propto e^{-c x^\alpha}$ with $c>0$ and $\alpha\ge2$,
+$k=c\alpha x^{\alpha-2}$. For $\alpha=2$ the threshold is $t>1/(2c)$;
+for $\alpha>2$ every positive period has finite cost, and a best period
+attains the infimum over all renewal laws. The density itself need not
+decrease from the origin: $p(x)\propto x^m e^{-cx^2}$ with $c,m>0$
+has its mode at positive distance. Here $V=cx^2-m\log x$ is singular at
+zero, but $k=2c-m/x^2$ increases to $2c$. The same strict threshold
+$t>1/(2c)$ follows and periodic resetting is again optimal.
 
-Evans and Ray~\cite{evans} studied precisely this distinction between fixed
-and randomly located targets. They derived a conjugate target density
-proportional to the square of the one-attempt success probability and
-discussed the advantage of periodic resetting for narrow targets.
-For a periodic clock the conjugate density is proportional to
-$\erfc^2(x/\sqrt{2t})$ in our normalization. It has a Gaussian-type tail,
-whereas the exact Gaussian distance density used here is proportional to
-$e^{-x^2/2}$. The squared-success equality case from the companion
-bound~\cite{note} also leaves this instance open: it would require
-$q(x)=e^{-x^2/4}$, but every $q_t$ and every positive mixture of them is
-convex on $(0,\infty)$, while $e^{-x^2/4}$ is concave near zero.
-The compact comparison supplies the missing inequality for this target.
+\paragraph{A sufficient condition.}
+The class in \eqref{eq:shape} does not exhaust the target laws for which a
+periodic clock is optimal. For the conjugate target
+$p(x)\propto q_\tau(x)^2$ of Evans and Ray~\cite{evans}, the equality case
+of the kernel bound in~\cite{note} gives optimality of $\delta_\tau$.
+Indeed, write $N_\tau=\int_0^\infty q_\tau^2\,dx$. Pairing $(x,y)$ with
+$(y,x)$ in~\eqref{eq:J} and applying the arithmetic--geometric mean
+inequality to the two positive ratios yields
+\[
+ J(\mu)\ge \frac{2}{N_\tau}\iint_{(0,\infty)^2}
+ \min(x,y)q_\tau(x)q_\tau(y)\,dx\,dy=J(\delta_\tau)<\infty .
+\]
+The Gaussian decay of $q_\tau$ makes this last integral finite.
+In this example $k(x)=2h_\tau(x)/x$ is strictly decreasing by the change
+of variable in Lemma~\ref{lem:weight}. Thus the shape assumption is not
+necessary for optimality.
 
-\paragraph{Manuscript status.}
-This working paper has not undergone peer review. OpenAI Codex assisted
-with the derivation, drafting and numerical check; a separate AI reading
-examined the sign and endpoint arguments. The benchmark values are
-reported for reproducibility. Priority for the global comparison remains
-subject to independent literature review.
+\section*{Data availability statement}
+The analytic results require no empirical data. The
+\href{https://github.com/daemonx666/math-physics-notes/tree/main/papers/gaussian-periodic-resetting}{accompanying repository}
+contains the manuscript and a Python standard-library script for the
+Gaussian quadrature.
+
+\section*{Acknowledgements}
+\emph{AI disclosure.} OpenAI Codex assisted with derivation, drafting and
+numerical checks. A separate AI reading examined the finiteness threshold,
+endpoint signs and attainment arguments. This working paper has not
+undergone peer review.
 
 \begin{thebibliography}{4}
 \bibitem{pinsky} R.~G. Pinsky, Comparison of Brownian jump and Brownian
