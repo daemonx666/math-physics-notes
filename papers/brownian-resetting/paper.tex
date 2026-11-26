@@ -1,0 +1,178 @@
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,amsmath,amssymb,amsthm}
+\usepackage[margin=1in]{geometry}
+\usepackage[hidelinks]{hyperref}
+\newtheorem{theorem}{Theorem}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Prob}{\mathbb{P}}
+\newcommand{\erfc}{\operatorname{erfc}}
+\title{A sharp bound for Brownian search with renewal resetting\\
+\large Exact clocks for a family of power-law target distances}
+\author{Mathematical Physics Notes}
+\date{Working paper, 26 November 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+A Brownian searcher repeatedly returns to its starting point while looking
+for a target sampled once at the beginning of the search. For clocks drawn
+independently from the same law at each restart, we express the duration of a
+single attempt as a symmetric integral operator applied to its success
+probability. An arithmetic--geometric mean inequality then bounds the mean
+search time from below and characterizes equality. For a Lomax family of
+target distances we construct a clock attaining the bound and compute the
+minimum. Two thresholds separate divergence of the search time from
+divergence of the mean interval of an optimal clock.
+\end{abstract}
+
+\section{Model and relation to previous work}
+On the real line a Brownian particle starts from zero with variance $2Dt$
+at time $t$, where $D>0$. A target distance $X$ has density $p$ on
+$(0,\infty)$ and is sampled once. By reflection symmetry we may place the
+target at $+X$. In each attempt the searcher runs a fresh Brownian motion
+and draws a fresh clock $R$, independent of the motion and the target, from
+a common law with $\Prob(0<R<\infty)=1$. Hitting the target ends the search.
+If the clock rings first, the particle returns instantaneously to zero.
+Write $T$ for the total time and average over the target, paths, and clocks.
+This class includes deterministic periods and clocks with infinite mean.
+Clocks updated from observations or from the number of failures are outside
+the optimization domain.
+
+Evans and Ray~\cite{evansray} derived a conjugacy relation between the
+target density and the squared probability of success in one attempt.
+Their variational argument gives stationarity, and their numerical
+comparisons examine minimum behavior in particular clock families. They
+also studied heavy-tailed clocks and conjugate target distributions.
+Here a global inequality in one dimension supplies a sufficient as well as
+a necessary equality condition when its bound is finite. We use it to solve
+the optimization for a specified family of target densities.
+
+\section{A universal bound and its equality condition}
+Let $H_x$ denote the hitting time of $x>0$ by a fresh Brownian path, and put
+\[
+ q(x)=\Prob(H_x<R),\qquad a(x)=\E[\min(H_x,R)].
+\]
+For each $x>0$, $q(x)>0$. Hitting times have continuous laws, so ties with
+an independent clock have probability zero. The expected duration of attempt
+$n$, weighted by the probability of reaching it, is $(1-q(x))^{n-1}a(x)$.
+Summing nonnegative terms gives $\E[T\mid X=x]=a(x)/q(x)$, also when
+$a(x)=\infty$.
+
+\begin{theorem}\label{thm:bound}
+For every admissible clock and target density,
+\begin{equation}\label{eq:bound}
+ \E T\ \ge\ \frac{1}{D}\int_0^\infty
+ \left(\int_s^\infty \sqrt{p(x)}\,dx\right)^2 ds .
+\end{equation}
+If $p>0$ almost everywhere and the right side is finite, equality holds
+precisely for clocks satisfying $q=c\sqrt p$ almost everywhere, for some
+constant $c>0$.
+\end{theorem}
+\begin{proof}
+For a deterministic clock $t>0$, the reflection principle gives
+$q_t(x)=\erfc(x/\sqrt{4Dt})$. The expected duration of an attempt is
+$a_t(x)=\int_0^t(1-q_s(x))\,ds$. For $x>0$,
+$\partial_s q_s=D\partial_x^2 q_s$ and $q_{0+}(x)=0$, hence
+$-Da_t''(x)=q_t(x)$. Differentiation under the integral on compact
+subsets of $(0,\infty)$ follows from the Gaussian decay as $s\downarrow0$.
+Also $a_t(0)=0$ and $a_t'(\infty)=0$, the latter following from
+$-\partial_x q_s(x)=(\pi Ds)^{-1/2}\exp[-x^2/(4Ds)]$ by dominated
+convergence. Integrating the differential equation twice gives
+$Da_t(x)=\int_0^\infty \min(x,y)q_t(y)\,dy$.
+Averaging over $R$ and applying Tonelli's theorem gives the identity
+\begin{equation}\label{eq:kernel}
+ Da(x)=\int_0^\infty \min(x,y)q(y)\,dy .
+\end{equation}
+Consequently $D\E T$ is the integral over $x,y>0$ of the kernel
+$\min(x,y)$ multiplied by $p(x)q(y)/q(x)$. The kernel is symmetric.
+Averaging the integrand with its transpose and applying the
+arithmetic--geometric mean inequality bounds the multiplier below by
+$\sqrt{p(x)p(y)}$. The identity
+$\min(x,y)=\int_0^\infty {\bf1}_{s<x}{\bf1}_{s<y}\,ds$ and Tonelli's
+theorem now give~\eqref{eq:bound}.
+For finite equality the nonnegative difference of the symmetrized
+integrands must vanish almost everywhere. Since $\min(x,y)>0$, this means
+$p(x)/q(x)^2=p(y)/q(y)^2$ for almost every pair. Fubini's theorem gives
+a common constant almost everywhere. Conversely this condition gives
+pointwise equality almost everywhere.
+\end{proof}
+For any clock, $q$ is continuous on $(0,\infty)$ and $q(0+)=1$ by
+bounded convergence. Thus a positive continuous density with finite,
+positive $p(0+)$ fixes the candidate uniquely as a function,
+$q(x)=\sqrt{p(x)/p(0+)}$. Attainment still requires a clock with that
+success probability.
+
+\section{Exact clocks for power-law target distances}
+\begin{theorem}\label{thm:lomax}
+Let $L>0$, $b>1/2$, and let the target distance have density
+\[
+ p_b(x)=\frac{2b-1}{L}(1+x/L)^{-2b},\qquad x>0 .
+\]
+For $1/2<b\le3/2$ the mean search time is infinite for every admissible
+clock. For $b>3/2$ its minimum over admissible clocks is
+\begin{equation}\label{eq:value}
+ \min \E T=\frac{L^2}{D}\frac{2b-1}{(b-1)^2(2b-3)} .
+\end{equation}
+To attain it, draw $K$ from a gamma distribution of shape $b$ and rate $L$
+at the start of each attempt and draw $R$ conditionally exponential with
+rate $DK^2$. Every clock attaining the finite minimum has infinite mean for
+$3/2<b\le2$ and finite mean for $b>2$.
+\end{theorem}
+\begin{proof}
+When $b\le1$, the inner integral in~\eqref{eq:bound} diverges. For $b>1$
+it equals
+$\sqrt{(2b-1)/L}\,L(1+s/L)^{1-b}/(b-1)$.
+Its square is integrable in $s$ exactly when $b>3/2$. Integration gives
+the right side of~\eqref{eq:value}.
+
+Given $K=k$, the hitting-time Laplace transform yields
+$\Prob(H_x<R\mid K=k)=\E e^{-Dk^2 H_x}=e^{-kx}$.
+Indeed the bounded solution of $Du''=Dk^2u$ on $(-\infty,x)$ with
+$u(x)=1$ and $u(-\infty)=0$ has $u(0)=e^{-kx}$. Integrating over the
+gamma density $L^b k^{b-1}e^{-Lk}/\Gamma(b)$ gives
+$q(x)=(1+x/L)^{-b}$. This realizes the equality condition in
+Theorem~\ref{thm:bound} whenever the bound is finite.
+
+For any clock, integration of $xq_t(x)$ gives
+$\int_0^\infty xq_t(x)\,dx=Dt$, since
+$\int_0^\infty z\erfc(z)\,dz=1/4$ by integration by parts. Tonelli gives
+$D\E R=\int_0^\infty xq(x)\,dx$, including infinite values.
+Every finite minimizer has the same normalized success function.
+Substitution gives divergence when $b\le2$ and
+$\E R=L^2/[D(b-1)(b-2)]$ when $b>2$.
+\end{proof}
+
+\section{A direct check at the clock threshold}
+At $b=2$ the constructed clock has infinite mean but a finite optimal
+mean search time. To check the value without the symmetric kernel, condition
+on the exponential clock rate. One attempt then has expected duration
+$(1-e^{-kx})/(Dk^2)$. Mixing against the gamma density at $b=2$ gives
+\[
+ a(x)=\frac{L^2}{D}\int_0^\infty
+ \frac{e^{-Lk}-e^{-(L+x)k}}{k}\,dk
+ =\frac{L^2}{D}\log(1+x/L).
+\]
+The last identity follows by integrating $e^{-uk}$ over $L<u<L+x$
+first. Dividing by $q(x)$ and averaging over $p_2$ gives
+\[
+ \E T=\frac{3L^2}{D}\int_1^\infty \frac{\log v}{v^2}\,dv
+ =\frac{3L^2}{D}.
+\]
+Long scheduled intervals therefore coexist with a finite mean time spent
+searching: an attempt stops early whenever the target is reached.
+
+\paragraph{Reproducibility and status.}
+The accompanying \texttt{verify.py} evaluates the conditional-clock renewal
+calculation independently of the lower-bound integral for four parameter
+values. This working paper has not undergone peer review. Generative AI
+(OpenAI Codex) assisted with the derivation, manuscript, and numerical
+script. Priority for the specific bounds and thresholds remains subject
+to independent literature review.
+
+\begin{thebibliography}{1}
+\bibitem{evansray} M. R. Evans and S. Ray,
+Stochastic Resetting Prevails Over Sharp Restart for Broad Target
+Distributions, \textit{Phys. Rev. Lett.} \textbf{134}, 247102 (2025).
+\href{https://doi.org/10.1103/2wpq-gl2j}{doi:10.1103/2wpq-gl2j}.
+\end{thebibliography}
+\end{document}
