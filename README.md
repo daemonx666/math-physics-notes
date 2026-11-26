@@ -2,6 +2,12 @@
 
 这个仓库存放数学与理论物理的证明、研究笔记和论文预稿。每篇工作有独立目录，包含模型假设、推导和引用。涉及计算的结果附复算脚本。
 
+## 非固定重置时限：利用失败历史收紧最优搜索时间
+
+[研究说明与证明](notes/gaussian-failure-memory/README.md) · [区间验证器](notes/gaussian-failure-memory/verify.py) · [证书与见证数据](notes/gaussian-failure-memory/certificates.json.gz)
+
+标准布朗运动搜索一次抽取的标准高斯目标。每轮只观察成功或超时，允许失败后改变下一轮时限。分支历史证书将所有允许序列的最优平均耗时夹在 $3.07196953$ 与 $3.09079864$ 之间。下界对任意时限序列成立，上界由一条可执行序列给出。说明中另行验证了当前证书方法的极限，并比较早期决策和后续策略分别还有多少改进空间。
+
 ## 由目标距离分布判断固定周期重置何时最优
 
 [阅读论文（PDF）](papers/gaussian-periodic-resetting/paper.pdf) · [LaTeX 源稿](papers/gaussian-periodic-resetting/paper.tex) · [高斯特例复算脚本](papers/gaussian-periodic-resetting/verify.py)
